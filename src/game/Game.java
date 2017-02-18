@@ -410,7 +410,7 @@ class View extends JPanel
                 }
                 sprites[0] = ImageIO.read(new File("bg.jpg"));
                 sprites[1] = tileset.getSubimage(0*isize, 0, isize, isize);
-//                worldMap = new WorldMap();
+//                worldMap = new WorldMap(); //
                 path = new int[][]{new int[]{
                     1,1,1,1,1,1,1,1,1,1,
                     1,0,0,0,0,1,1,1,1,0,
