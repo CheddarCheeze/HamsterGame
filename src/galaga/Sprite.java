@@ -36,10 +36,10 @@ class Sprite implements Serializable
 		{
 			beamImage   = ImageIO.read(new File("src/galaga/beam.png"));
 			missleImage = ImageIO.read(new File("src/galaga/missle.png"));
-//			enemyImage  = ImageIO.read(new File("src/galaga/hamster.png"));
-//			bossImage   = ImageIO.read(new File("src/galaga/evilHamster.png"));
-			enemyImage  = ImageIO.read(new File("src/galaga/enemy.png"));
-			bossImage   = ImageIO.read(new File("src/galaga/boss.png"));
+			enemyImage  = ImageIO.read(new File("src/galaga/AngryPusheen.png"));
+			bossImage   = ImageIO.read(new File("src/galaga/Boss.png"));
+//			enemyImage  = ImageIO.read(new File("src/galaga/enemy.png"));
+//			bossImage   = ImageIO.read(new File("src/galaga/boss.png"));
 			playerImage = ImageIO.read(new File("src/galaga/spaceship.png"));
 		}
 		catch(IOException e)

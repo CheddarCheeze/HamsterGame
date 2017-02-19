@@ -54,7 +54,7 @@ public class SpawningThread implements Runnable
 			Game.setPhase("Phase One");
 			Enemy.setEnemiesKilled(0);
 			setBossState(BossState.None);
-			setTotalEnemies(30);
+			setTotalEnemies(15);
 			sleep(2000);
 			setPhaseLocation("Phase One");
 		}
@@ -91,7 +91,7 @@ public class SpawningThread implements Runnable
 				return;
 			Game.setPhase("Phase Two");
 			Enemy.setEnemiesKilled(0);
-			setTotalEnemies(40);
+			setTotalEnemies(20);
 			sleep(2000);
 			setPhaseLocation("Phase Two");
 		}
@@ -129,7 +129,7 @@ public class SpawningThread implements Runnable
 				return;
 			Game.setPhase("Phase Three");
 			Enemy.setEnemiesKilled(0);
-			setTotalEnemies(25);
+			setTotalEnemies(10);
 			sleep(2000);
 			setPhaseLocation("Phase Three");
 		}

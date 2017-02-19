@@ -2,6 +2,8 @@
 
 import audio.MusicPlayer;
 import galaga.*;
+import DDR3.src.*;
+import GAME_CODE.*;
 import java.awt.BorderLayout;
 
 import java.awt.event.ActionListener;
@@ -255,10 +257,13 @@ class NPC {
         infoBox("Do you want to play a game?","Hammy");
     }
     void startDialog2() {
-        infoBox("Do you want to play a game?","Hammy");
+        infoBox2("Do you want to play a game?","Sammy");
     }
     void startDialog3() {
-        infoBox("Do you want to play a game?","Hammy");
+        infoBox3("Do you want to play a game?","Jammy");
+    }
+    void startDialog4() {
+        infoBox4("Do you want to play a game?","Lammy");
     }
     
     public static void infoBox(String infoMessage, String titleBar)
@@ -269,7 +274,7 @@ class NPC {
     }
     public static void infoBox2(String infoMessage, String titleBar)
     {
-        ImageIcon icon = new ImageIcon("Jigsaw.png");
+        ImageIcon icon = new ImageIcon("winallgames.jpg");
         JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE,icon);
         try {
             galaga.Game.main(new String[0]);
@@ -280,15 +285,25 @@ class NPC {
     }
     public static void infoBox3(String infoMessage, String titleBar)
     {
+        ImageIcon icon = new ImageIcon("game_time.png");
+        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE,icon);
+        try {
+            DDR3.src.Game.main(new String[0]);
+        }
+        catch(Exception e ) {
+            System.out.println("Something wrong with DDR?");
+        }
+    }
+    public static void infoBox4(String infoMessage, String titleBar)
+    {
         ImageIcon icon = new ImageIcon("Jigsaw.png");
         JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE,icon);
-//        TTT.main(new String[0]);
-//        try {
-//            galaga.Game.main(new String[0]);
-//        }
-//        catch(Exception e ) {
-//            System.out.println("Something wrong with Galaga launch from game.Game.java?");
-//        }
+        try {
+            GAME_CODE.Game.main(new String[0]);
+        }
+        catch(Exception e ) {
+            System.out.println("Something wrong with Galaga launch from game.Game.java?");
+        }
     }
     
 }
@@ -300,6 +315,7 @@ class Model {
     NPC npc;
     NPC npc2;
     NPC npc3;
+    NPC npc4;
     MusicPlayer playsound;
     int dest_x;
     int dest_y;
@@ -312,6 +328,7 @@ class Model {
         npc = new NPC("Hammy", 500, 70, "hamster/npc/bluefron.png","hamster/npc/blue_front_nose_up.png",2);
         npc2 = new NPC("Girl", 470, 330, "hamster/npc/girlfront.png","hamster/npc/girl_move.png",2);
         npc3 = new NPC("Green", 210, 530, "hamster/npc/green_man_front.png","hamster/npc/green_man_step.png",1);
+        npc4 = new NPC("Side", 500, 530, "hamster/npc/blue_right.png","hamster/npc/bluee_rightmove.png",2);
     }
     
     
@@ -349,6 +366,15 @@ class Model {
                 npc3.startDialog3();
             }
         }
+        if(npc4.valid) {
+            if(gary.x + 5 > npc4.x &&
+                gary.x < npc4.x + 40 &&
+                gary.y + 3 > npc4.y &&
+                gary.y < npc4.y + 30)
+            {
+                npc4.startDialog4();
+            }
+        }
     }
     
     void update()
@@ -384,6 +410,7 @@ class View extends JPanel
         static boolean game1;
         static boolean game2;
         static boolean game3;
+        static boolean game4;
         
 
 	View(Controller c, Model m) {
@@ -392,6 +419,7 @@ class View extends JPanel
             game1 = false;
             game2 = false;
             game3 = false;
+            game4 = false;
 //            GridLayout experimentLayout = new GridLayout(4,4);
 //            setLayout(experimentLayout);
             setScoreLabel();
@@ -429,8 +457,8 @@ class View extends JPanel
                     1,1,1,0,0,0,0,1,1,1,
                     1,1,1,0,1,1,0,1,1,1,
                     1,1,0,0,0,0,0,1,1,1,
-                    1,1,0,1,1,1,1,1,1,1,
-                    1,1,0,0,1,1,1,1,1,1,
+                    1,1,0,3,1,1,1,1,1,1,
+                    1,1,0,2,1,1,1,1,1,1,
                     1,1,1,0,1,1,1,1,1,1,
                     1,1,1,1,1,1,1,1,1,1
                 }, new int[] {
@@ -453,7 +481,7 @@ class View extends JPanel
                     1,1,0,0,1,0,0,0,1,1,
                     1,0,0,1,1,1,1,0,0,1,
                     1,0,1,1,1,1,1,1,0,1,
-                    1,0,0,0,0,0,0,0,0,1,
+                    1,0,1,1,1,1,1,1,0,1,
                     1,1,1,1,1,1,1,1,1,1
                 }};
                 model.gary.path = path[currentArea];
@@ -479,10 +507,33 @@ class View extends JPanel
         public static void game3Clear() {
             game3 = true;
         }
+        public static void game4Clear() {
+            game4 = true;
+        }
         
         public void game1Change() {
             path[2][65] = 0;
             path[2][75] = 0;
+            game1 = false;
+        }
+        public void game2Change() {
+            path[1][63] = 1;
+            path[1][73] = 0;
+            game2 = false;
+        }
+        public void game3Change() {
+            path[3][82] = 0;
+            path[3][83] = 0;
+            path[3][84] = 0;
+            path[3][85] = 0;
+            path[3][86] = 0;
+            path[3][87] = 0;
+            game3 = false;
+        }
+        public void game4Change() {
+            // You Win Message
+            
+            game4 = false;
         }
         
     private void setScoreLabel() {
@@ -524,6 +575,7 @@ class View extends JPanel
                 currentArea = 2;
                 model.npc.valid = true;
                 model.npc2.valid = true;
+                model.npc4.valid = true;
                 model.gary.x = 15;
                 refreshMap(currentArea);
             }
@@ -531,6 +583,7 @@ class View extends JPanel
                 currentArea = 0;
                 model.npc.valid = false;
                 model.npc2.valid = false;
+                model.npc4.valid = false;
                 model.gary.x = screenSize * isize - 30;
                 refreshMap(currentArea);
             }
@@ -550,6 +603,7 @@ class View extends JPanel
                 currentArea = 3;
                 model.npc.valid = false;
                 model.npc2.valid = false;
+                model.npc4.valid = false;
                 model.gary.y = 15;
                 refreshMap(currentArea);
             }
@@ -557,15 +611,25 @@ class View extends JPanel
                 currentArea = 2;
                 model.npc.valid = true;
                 model.npc2.valid = true;
+                model.npc4.valid = true;
                 model.gary.y = screenSize*isize-40;
                 refreshMap(currentArea);
             }
             
             
             //Draw NPC
-            if(currentArea == 2) {
+            if(currentArea == 1) {
+                if(game2) {
+                    game2Change();
+                }
+                g.drawImage(sprites[1], 3*isize, 6*isize, isize, isize, this);
+            }
+            else if(currentArea == 2) {
                 if(game1) {
                     game1Change();
+                }
+                if(game3) {
+                    game3Change();
                 }
                 g.drawImage(sprites[1], 5*isize, 6*isize, isize, isize, this);
             }
@@ -593,10 +657,12 @@ class View extends JPanel
                 if(model.npc.current++ % 5 == 0 ) {
                     model.npc.pic.paintIcon(this, g, model.npc.x, model.npc.y);
                     model.npc2.pic.paintIcon(this, g, model.npc2.x, model.npc2.y);
+                    model.npc4.pic.paintIcon(this, g, model.npc4.x, model.npc4.y);
                 }
                 else {
                     model.npc.pic2.paintIcon(this, g, model.npc.x, model.npc.y);
                     model.npc2.pic2.paintIcon(this, g, model.npc2.x, model.npc2.y);
+                    model.npc4.pic2.paintIcon(this, g, model.npc4.x, model.npc4.y);
                     model.npc.current = 0;
                 }
             }
@@ -768,6 +834,10 @@ public class Game extends JFrame implements ActionListener
                 m.update();
 		repaint(); // Indirectly calls View.paintComponent
 	}
+        
+        public static void game2Clear() {
+            View.game2Clear();
+        }
         
 	public static void main(String[] args)
 	{

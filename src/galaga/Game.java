@@ -1,4 +1,6 @@
 package galaga;
+
+import game.*;
 /*
  * File: Game.java
  * Author: Luke S. Snyder
@@ -74,7 +76,7 @@ public class Game extends JFrame implements ActionListener
 	        	font = new Font("arial", Font.PLAIN, 30);
 	        	
 	        	g.setFont(font);
-	        	g.drawString("Created by Luke S. Snyder", 335, 500);
+	        	g.drawString("Created by Hamsters", 335, 500);
         	}
         	else 
         	{
@@ -236,6 +238,7 @@ public class Game extends JFrame implements ActionListener
 	    	boss.setVelocityX(0);
 	    	boss.setVelocityY(0);
 	    	repaint();
+                game.Game.game2Clear();
     	}
     }
 
